@@ -171,4 +171,19 @@ export default defineSchema({
     .index("by_member", ["memberId"])
     .index("by_trainer", ["trainerId"])
     .index("by_member_trainer", ["memberId", "trainerId"]),
+
+  memberSubscriptions: defineTable({
+    userId: v.id("users"),
+    membershipId: v.id("memberships"),
+    startDate: v.string(),
+    endDate: v.string(),
+    status: v.union(
+      v.literal("active"),
+      v.literal("expired"),
+      v.literal("canceled")
+    ),
+  })
+    .index("by_userId", ["userId"])
+    .index("by_status", ["status"])
+    .index("by_membershipId", ["membershipId"]),
 });
